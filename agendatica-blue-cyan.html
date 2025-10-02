@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendatica – Tu Reserva Automática</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Myrwa3U1ZTDGcVw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Embedded CSS -->
+    <style>
+        :root {
+            --navy: #1a1a3e;
+            --navy-dark: #0f0f28;
+            --cyan: #00d9ff;
+            --cyan-light: #33e3ff;
+            --white: #ffffff;
+            --text-light: #e5e7eb;
+            --text-muted: #9ca3af;
+            --radius: 8px;
+            --max-width: 1200px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--white);
+            background: var(--navy);
+            line-height: 1.6;
+            min-width: 320px;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        h1, h2, h3 {
+            line-height: 1.2;
+            color: var(--white);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--cyan);
+            color: var(--navy);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            text-align: center;
+            min-height: 44px;
+        }
+
+        .btn:hover {
+            background: var(--cyan-light);
+            transform: translateY(-2px);
+        }
+
+        .btn--outline {
+            background: transparent;
+            color: var(--cyan);
+            border: 2px solid var(--cyan);
+        }
+
+        .btn--outline:hover {
+            background: var(--cyan);
+            color: var(--navy);
+        }
+
+        .container {
+            width: 90%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 4rem 0 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .hero__text h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero__text p {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .hero__actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .hero__image {
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 2px solid var(--cyan);
+        }
+
+        /* Services */
+        .services {
+            padding: 4rem 0;
+            background: var(--navy-dark);
+        }
+
+        .services h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 1.75rem;
+        }
+
+        .services__grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--navy);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--cyan);
+        }
+
+        .service-card i {
+            font-size: 2.5rem;
+            color: var(--cyan);
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+        }
+
+        .service-card p {
+            color: var(--text-light);
+        }
+
+        /* Cases */
+        .cases {
+            padding: 4rem 0;
+        }
+
+        .cases h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 1.75rem;
+        }
+
+        .cases__grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .case-card {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--navy-dark);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .case-card:hover {
+            border-color: var(--cyan);
+        }
+
+        .case-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .case-card__body {
+            padding: 1.5rem;
+        }
+
+        .case-card__body h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        .case-card__body p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .case-card__metrics {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .metric {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .metric strong {
+            display: block;
+            color: var(--cyan);
+            font-size: 1.25rem;
+        }
+
+        /* Contact */
+        .contact {
+            padding: 4rem 0;
+            background: var(--navy-dark);
+        }
+
+        .contact h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 1.75rem;
+        }
+
+        .contact form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .contact label {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--white);
+        }
+
+        .contact input,
+        .contact textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-family: inherit;
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .contact input:focus,
+        .contact textarea:focus {
+            outline: none;
+            border-color: var(--cyan);
+        }
+
+        .contact textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 2.5rem 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            border-top: 1px solid rgba(0, 217, 255, 0.1);
+        }
+
+        .footer .social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer .social a {
+            font-size: 1.25rem;
+            transition: color 0.2s ease;
+            color: var(--text-light);
+        }
+
+        .footer .social a:hover {
+            color: var(--cyan);
+        }
+
+        /* Header/Logo */
+        .header {
+            padding: 2rem 0 1rem;
+        }
+
+        .logo img {
+            max-width: 350px;
+            width: 100%;
+            height: auto;
+        }
+
+        /* Responsive */
+        @media (min-width: 640px) {
+            .hero__text h1 {
+                font-size: 2.5rem;
+            }
+
+            .services h2,
+            .cases h2,
+            .contact h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .hero {
+                flex-direction: row;
+                align-items: center;
+                gap: 3rem;
+            }
+
+            .hero__text,
+            .hero__image {
+                flex: 1;
+            }
+
+            .services__grid,
+            .cases__grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .services__grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .cases__grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo Header -->
+    <header class="header container">
+        <div class="logo">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAvAAAAC4CAYAAACkR9RLAAAACXBIWXMAAAsTAAALEwEAmpwYAAAKT2lDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjanVNnVFPpFj333vRCS4iAlEtvUhUIIFJCi4AUkSYqIQkQSogMAGCAABACKDkEAAzAAACBggAAgCAACAYAAARAAEAAAKABBxAAgIQAABwAAACACAAAgHwAAIAAAAACAQAAgPwAAAAAgHoAAIAPAAAAgAEAAIABAAAACAIAAFoCAAAgBgAAAAAAADALAAAAPwAAAA6AQAAfgAAAAHAAAAAAAAAACAAAgP8AAAAAAAAAgAA" alt="Agendatica - Tu reserva automática">
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero container">
+        <div class="hero__text">
+            <h1>Profesionaliza tu Club con Reservas Automáticas</h1>
+            <p>Automatiza la gestión de canchas con nuestro chatbot de WhatsApp. Reservas 24/7, pagos automáticos y cero errores. La solución inteligente para clubes de pádel y tenis.</p>
+            <div class="hero__actions">
+                <a href="#contact" class="btn">Solicitar Demo</a>
+                <a href="#services" class="btn btn--outline">Conocer Más</a>
+            </div>
+        </div>
+        <div class="hero__image">
+            <img src="https://placehold.co/600x400/1a1a3e/00d9ff?text=Agendatica+Bot" alt="Agendatica WhatsApp bot preview">
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2>Funcionalidades Clave</h2>
+            <div class="services__grid">
+                <article class="service-card">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <h3>Reservas por WhatsApp</h3>
+                    <p>Los jugadores reservan canchas enviando un mensaje. El bot detecta horarios, verifica disponibilidad y confirma al instante.</p>
+                </article>
+                <article class="service-card">
+                    <i class="fa-solid fa-credit-card"></i>
+                    <h3>Pagos Automáticos</h3>
+                    <p>Genera links de pago con Mercado Pago. La reserva se confirma automáticamente tras la aprobación del pago.</p>
+                </article>
+                <article class="service-card">
+                    <i class="fa-solid fa-bell"></i>
+                    <h3>Recordatorios Inteligentes</h3>
+                    <p>Envía alertas 24h y 3h antes del turno. Reduce olvidos, aumenta asistencia y maximiza ocupación de canchas.</p>
+                </article>
+                <article class="service-card">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <h3>Reportes y Analytics</h3>
+                    <p>Visualiza ocupación, conversión y datos de jugadores en tiempo real. Toma decisiones basadas en información concreta.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cases -->
+    <section class="cases">
+        <div class="container">
+            <h2>Casos de Éxito</h2>
+            <div class="cases__grid">
+                <article class="case-card">
+                    <img src="https://placehold.co/600x400/0f0f28/00d9ff?text=Club+Padel+Centro" alt="Club de padel centro">
+                    <div class="case-card__body">
+                        <h3>Club de Pádel Centro</h3>
+                        <p>Eliminó llamadas telefónicas y duplicaciones. Reservas automáticas 24/7 aumentaron la ocupación en horarios off-peak.</p>
+                        <div class="case-card__metrics">
+                            <div class="metric"><strong>35%</strong> más ocupación</div>
+                            <div class="metric"><strong>90%</strong> reducción errores</div>
+                        </div>
+                    </div>
+                </article>
+                <article class="case-card">
+                    <img src="https://placehold.co/600x400/0f0f28/00d9ff?text=Club+Tenis+Norte" alt="Club de tenis norte">
+                    <div class="case-card__body">
+                        <h3>Club de Tenis Norte</h3>
+                        <p>Integró pagos automáticos con Mercado Pago. Los recordatorios redujeron los no-shows y mejoraron la experiencia.</p>
+                        <div class="case-card__metrics">
+                            <div class="metric"><strong>4%</strong> tasa de no-shows</div>
+                            <div class="metric"><strong>20h/sem</strong> tiempo ahorrado</div>
+                        </div>
+                    </div>
+                </article>
+                <article class="case-card">
+                    <img src="https://placehold.co/600x400/0f0f28/00d9ff?text=Red+Clubes+Sur" alt="Red de clubes sur">
+                    <div class="case-card__body">
+                        <h3>Red de Clubes Sur</h3>
+                        <p>Implementó el bot en 5 sedes. Gestión centralizada de reservas, promociones automáticas y reportes unificados.</p>
+                        <div class="case-card__metrics">
+                            <div class="metric"><strong>5</strong> sedes integradas</div>
+                            <div class="metric"><strong>+300</strong> reservas/semana</div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Solicita tu Demo</h2>
+            <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <label for="name">Nombre *</label>
+                <input type="text" id="name" name="name" required minlength="2">
+
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="club">Nombre del Club *</label>
+                <input type="text" id="club" name="club" required>
+
+                <label for="message">Cuéntanos sobre tu club</label>
+                <textarea id="message" name="message" placeholder="¿Cuántas canchas tienen? ¿Cómo gestionan las reservas actualmente?"></textarea>
+
+                <button type="submit" class="btn">Solicitar Demo</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="social">
+                <a href="https://linkedin.com" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://twitter.com" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="mailto:hola@agendatica.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+            <p>© 2025 Agendatica. Tu reserva automática.</p>
+        </div>
+    </footer>
+</body>
+</html>
