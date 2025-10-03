@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendatica – Tu Reserva Automática</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Myrwa3U1ZTDGcVw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Embedded CSS -->
+    <style>
+        :root {
+            --navy: #1a1a3e;
+            --navy-dark: #0f0f28;
+            --cyan: #00d9ff;
+            --cyan-dark: #00b8d4;
+            --cyan-light: #33e3ff;
+            --white: #ffffff;
+            --text-light: #e5e7eb;
+            --text-muted: #9ca3af;
+            --radius: 12px;
+            --max-width: 1200px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--white);
+            background: var(--navy);
+            line-height: 1.6;
+            min-width: 320px;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        h1, h2, h3 {
+            line-height: 1.2;
+            color: var(--white);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--cyan);
+            color: var(--navy);
+            padding: 0.875rem 2rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            text-align: center;
+            min-height: 48px;
+            box-shadow: 0 4px 14px rgba(0, 217, 255, 0.3);
+        }
+
+        .btn:hover {
+            background: var(--cyan-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 217, 255, 0.4);
+        }
+
+        .btn--outline {
+            background: transparent;
+            color: var(--cyan);
+            border: 2px solid var(--cyan);
+            box-shadow: none;
+        }
+
+        .btn--outline:hover {
+            background: var(--cyan);
+            color: var(--navy);
+            box-shadow: 0 4px 14px rgba(0, 217, 255, 0.3);
+        }
+
+        .container {
+            width: 90%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            padding: 2rem 0 1rem;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+        }
+
+        .logo img {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 4rem 0 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 217, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero__text h1 {
+            font-size: 2.25rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--white) 0%, var(--cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero__text p {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .hero__actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .hero__image {
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 2px solid var(--cyan);
+            box-shadow: 0 8px 32px rgba(0, 217, 255, 0.2);
+            position: relative;
+        }
+
+        .hero__image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(0, 217, 255, 0.1) 100%);
+            pointer-events: none;
+        }
+
+        /* WhatsApp Chat Mockup */
+        .whatsapp-mockup {
+            background: #0d1418;
+            border-radius: var(--radius);
+            overflow: hidden;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .whatsapp-header {
+            background: #1f2c34;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 1px solid #2a3942;
+        }
+
+        .whatsapp-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--cyan), var(--cyan-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .whatsapp-info h4 {
+            font-size: 0.95rem;
+            color: #e9edef;
+            margin: 0;
+        }
+
+        .whatsapp-info p {
+            font-size: 0.75rem;
+            color: #8696a0;
+            margin: 0;
+        }
+
+        .whatsapp-chat {
+            background: #0b141a;
+            padding: 1.5rem 1rem;
+            min-height: 400px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 0.75rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .message-bubble {
+            max-width: 75%;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            position: relative;
+        }
+
+        .message.received .message-bubble {
+            background: #1f2c34;
+            color: #e9edef;
+            border-radius: 0 8px 8px 8px;
+        }
+
+        .message.sent {
+            justify-content: flex-end;
+        }
+
+        .message.sent .message-bubble {
+            background: #005c4b;
+            color: #e9edef;
+            border-radius: 8px 0 8px 8px;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            color: #8696a0;
+            display: block;
+            margin-top: 0.25rem;
+            text-align: right;
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 0.5rem 0.75rem;
+        }
+
+        .typing-indicator span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #8696a0;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+            30% { opacity: 1; transform: translateY(-4px); }
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 0;
+            background: linear-gradient(180deg, var(--navy) 0%, var(--navy-dark) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -150px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 217, 255, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .about__content {
+            display: grid;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about__text h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .about__text h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--cyan);
+            border-radius: 2px;
+        }
+
+        .about__text p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .about__features {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 1rem;
+            align-items: start;
+            padding: 1.5rem;
+            background: rgba(0, 217, 255, 0.05);
+            border-radius: var(--radius);
+            border: 1px solid rgba(0, 217, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            border-color: var(--cyan);
+            background: rgba(0, 217, 255, 0.08);
+            transform: translateX(8px);
+        }
+
+        .feature-item i {
+            font-size: 1.5rem;
+            color: var(--cyan);
+            min-width: 24px;
+            margin-top: 4px;
+        }
+
+        .feature-item svg {
+            min-width: 48px;
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+        }
+
+        .feature-item h4 {
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .feature-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* Services */
+        .services {
+            padding: 5rem 0;
+            background: var(--navy-dark);
+        }
+
+        .services h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .services__subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 3.5rem;
+            font-size: 1.1rem;
+        }
+
+        .services__grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--navy);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            text-align: center;
+            border: 1px solid rgba(0, 217, 255, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--cyan) 0%, var(--cyan-light) 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--cyan);
+            box-shadow: 0 12px 28px rgba(0, 217, 255, 0.2);
+        }
+
+        .service-card i {
+            font-size: 3rem;
+            color: var(--cyan);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover i {
+            transform: scale(1.1);
+        }
+
+        .service-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.35rem;
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Cases */
+        .cases {
+            padding: 5rem 0;
+        }
+
+        .cases h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .cases__subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 3.5rem;
+            font-size: 1.1rem;
+        }
+
+        .cases__grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .case-card {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--navy-dark);
+            border: 1px solid rgba(0, 217, 255, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .case-card:hover {
+            border-color: var(--cyan);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0, 217, 255, 0.2);
+        }
+
+        .case-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .case-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .case-card__body {
+            padding: 2rem;
+        }
+
+        .case-card__body h3 {
+            margin-bottom: 0.75rem;
+            font-size: 1.35rem;
+        }
+
+        .case-card__body p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .case-card__metrics {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 217, 255, 0.15);
+        }
+
+        .metric {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .metric strong {
+            display: block;
+            color: var(--cyan);
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Contact */
+        .contact {
+            padding: 5rem 0;
+            background: linear-gradient(180deg, var(--navy) 0%, var(--navy-dark) 100%);
+        }
+
+        .contact h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .contact__subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .contact form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+            display: block;
+        }
+
+        .contact input,
+        .contact textarea {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-family: inherit;
+            background: var(--navy);
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .contact input:focus,
+        .contact textarea:focus {
+            outline: none;
+            border-color: var(--cyan);
+            box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.1);
+        }
+
+        .contact textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 3rem 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(0, 217, 255, 0.1);
+        }
+
+        .footer .social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer .social a {
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            color: var(--text-light);
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .footer .social a:hover {
+            color: var(--cyan);
+            border-color: var(--cyan);
+            background: rgba(0, 217, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (min-width: 640px) {
+            .hero__text h1 {
+                font-size: 2.75rem;
+            }
+
+            .services h2,
+            .cases h2,
+            .contact h2,
+            .about__text h2 {
+                font-size: 2.25rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .hero {
+                flex-direction: row;
+                align-items: center;
+                gap: 3rem;
+            }
+
+            .hero__text,
+            .hero__image {
+                flex: 1;
+            }
+
+            .services__grid,
+            .cases__grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about__content {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .services__grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .cases__grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo Header -->
+    <header class="header container">
+        <div class="logo">
+            <svg width="400" height="100" viewBox="0 0 755 278" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Circle with gradient -->
+                <circle cx="95" cy="139" r="85" stroke="url(#gradient1)" stroke-width="20" fill="none"/>
+                <!-- Checkmark -->
+                <path d="M60 140 L85 165 L135 110" stroke="#e5e7eb" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <!-- Text AGENDATICA with gradient -->
+                <text x="210" y="165" font-family="Arial, sans-serif" font-size="90" font-weight="bold" fill="url(#gradient2)">AGENDÁTICA</text>
+                <!-- Subtitle -->
+                <text x="215" y="215" font-family="Arial, sans-serif" font-size="32" fill="#9ca3af" letter-spacing="8">TU RESERVA AUTOMÁTICA</text>
+                <defs>
+                    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#00d9ff;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#0ea5e9;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#00d9ff;stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:#0ea5e9;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#2563eb;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero container">
+        <div class="hero__text">
+            <h1>Profesionaliza tu Club con Reservas Automáticas</h1>
+            <p>Automatiza la gestión de canchas con nuestro chatbot de WhatsApp. Reservas 24/7, pagos automáticos y cero errores. La solución inteligente para clubes de pádel y tenis.</p>
+            <div class="hero__actions">
+                <a href="#contact" class="btn">Solicitar Demo</a>
+                <a href="#about" class="btn btn--outline">Conocer Más</a>
+            </div>
+        </div>
+        <div class="hero__image">
+            <div class="whatsapp-mockup">
+                <!-- WhatsApp Header -->
+                <div class="whatsapp-header">
+                    <div class="whatsapp-avatar">A</div>
+                    <div class="whatsapp-info">
+                        <h4>Agendatica Bot</h4>
+                        <p>en línea</p>
+                    </div>
+                </div>
+
+                <!-- Chat Messages -->
+                <div class="whatsapp-chat">
+                    <div class="message sent">
+                        <div class="message-bubble">
+                            Hola! Quiero reservar una cancha mañana a las 19:00
+                            <span class="message-time">18:32</span>
+                        </div>
+                    </div>
+
+                    <div class="message received">
+                        <div class="message-bubble">
+                            ¡Hola! 👋 Perfecto, déjame verificar la disponibilidad para mañana 23/10 a las 19:00.
+                            <span class="message-time">18:32</span>
+                        </div>
+                    </div>
+
+                    <div class="message received">
+                        <div class="message-bubble">
+                            ✅ Tengo estas opciones disponibles:<br><br>
+                            🎾 Cancha 1 - 19:00 a 20:30 - $2.500<br>
+                            🎾 Cancha 3 - 19:00 a 20:30 - $2.500<br><br>
+                            ¿Cuál prefieres?
+                            <span class="message-time">18:33</span>
+                        </div>
+                    </div>
+
+                    <div class="message sent">
+                        <div class="message-bubble">
+                            La cancha 1 por favor
+                            <span class="message-time">18:34</span>
+                        </div>
+                    </div>
+
+                    <div class="message received">
+                        <div class="message-bubble">
+                            ¡Excelente elección! 🎾<br><br>
+                            📋 Resumen:<br>
+                            • Cancha 1<br>
+                            • 23/10 - 19:00 a 20:30<br>
+                            • Total: $2.500<br><br>
+                            Te envío el link de pago. La reserva se confirma al aprobar el pago 👇
+                            <span class="message-time">18:34</span>
+                        </div>
+                    </div>
+
+                    <div class="message received">
+                        <div class="message-bubble">
+                            💳 https://mpago.la/abc123<br><br>
+                            Tenés 10 minutos para completar el pago ⏱️
+                            <span class="message-time">18:34</span>
+                        </div>
+                    </div>
+
+                    <div class="message received">
+                        <div class="message-bubble">
+                            <div class="typing-indicator">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about__content">
+                <div class="about__text">
+                    <h2>¿Qué es Agendatica?</h2>
+                    <p>Somos un chatbot inteligente diseñado específicamente para clubes deportivos que buscan profesionalizar su gestión y mejorar la experiencia de sus jugadores.</p>
+                    <p>Operamos 24/7 a través de WhatsApp, automatizando todo el proceso de reservas desde la consulta hasta el pago, eliminando errores humanos y liberando tiempo valioso del personal del club.</p>
+                </div>
+                <div class="about__features">
+                    <div class="feature-item">
+                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Gear with lightning bolt (automation) -->
+                            <circle cx="32" cy="32" r="28" stroke="#00d9ff" stroke-width="2.5"/>
+                            <path d="M32 12 L36 20 L32 24 L28 20 Z" fill="#00d9ff"/>
+                            <path d="M32 52 L28 44 L32 40 L36 44 Z" fill="#00d9ff"/>
+                            <path d="M12 32 L20 28 L24 32 L20 36 Z" fill="#00d9ff"/>
+                            <path d="M52 32 L44 36 L40 32 L44 28 Z" fill="#00d9ff"/>
+                            <path d="M32 22 L34 30 L28 36 L30 32 L26 30 L30 28 Z" fill="#00d9ff"/>
+                        </svg>
+                        <div>
+                            <h4>Automatización Total</h4>
+                            <p>El bot maneja consultas, reservas, pagos y confirmaciones sin intervención humana</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Connected nodes (integration) -->
+                            <circle cx="32" cy="16" r="6" fill="#00d9ff"/>
+                            <circle cx="16" cy="48" r="6" fill="#00d9ff"/>
+                            <circle cx="48" cy="48" r="6" fill="#00d9ff"/>
+                            <circle cx="32" cy="38" r="8" fill="none" stroke="#00d9ff" stroke-width="2.5"/>
+                            <line x1="32" y1="22" x2="32" y2="30" stroke="#00d9ff" stroke-width="2.5"/>
+                            <line x1="28" y1="42" x2="20" y2="44" stroke="#00d9ff" stroke-width="2.5"/>
+                            <line x1="36" y1="42" x2="44" y2="44" stroke="#00d9ff" stroke-width="2.5"/>
+                        </svg>
+                        <div>
+                            <h4>Integración Completa</h4>
+                            <p>Compatible con WhatsApp Business, Google Calendar, Google Sheets y Mercado Pago</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Shield with checkmark (zero errors) -->
+                            <path d="M32 8 L48 16 L48 32 Q48 44 32 56 Q16 44 16 32 L16 16 Z" fill="none" stroke="#00d9ff" stroke-width="2.5"/>
+                            <path d="M24 32 L29 38 L42 24" stroke="#00d9ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <div>
+                            <h4>Cero Errores</h4>
+                            <p>Previene dobles reservas, olvidos y retrasos en el servicio</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Star with sparkles (premium experience) -->
+                            <path d="M32 12 L36 26 L50 28 L40 38 L42 52 L32 44 L22 52 L24 38 L14 28 L28 26 Z" fill="none" stroke="#00d9ff" stroke-width="2.5"/>
+                            <circle cx="52" cy="16" r="2" fill="#00d9ff"/>
+                            <circle cx="12" cy="20" r="2" fill="#00d9ff"/>
+                            <circle cx="54" cy="48" r="2" fill="#00d9ff"/>
+                        </svg>
+                        <div>
+                            <h4>Experiencia Premium</h4>
+                            <p>Mejora la comunicación y satisfacción de tus jugadores</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2>Funcionalidades Clave</h2>
+            <p class="services__subtitle">Todo lo que necesitas para gestionar tu club de forma profesional</p>
+            <div class="services__grid">
+                <article class="service-card">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <h3>Reservas por WhatsApp</h3>
+                    <p>Los jugadores reservan canchas enviando un mensaje. El bot detecta horarios, verifica disponibilidad y confirma al instante.</p>
+                </article>
+                <article class="service-card">
+                    <i class="fa-solid fa-credit-card"></i>
+                    <h3>Pagos Automáticos</h3>
+                    <p>Genera links de pago con Mercado Pago. La reserva se confirma automáticamente tras la aprobación del pago.</p>
+                </article>
+                <article class="service-card">
+                    <i class="fa-solid fa-bell"></i>
+                    <h3>Recordatorios Inteligentes</h3>
+                    <p>Envía alertas 24h y 3h antes del turno. Reduce olvidos, aumenta asistencia y maximiza ocupación de canchas.</p>
+                </article>
+                <article class="service-card">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <h3>Reportes y Analytics</h3>
+                    <p>Visualiza ocupación, conversión y datos de jugadores en tiempo real. Toma decisiones basadas en información concreta.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cases -->
+    <section class="cases">
+        <div class="container">
+            <h2>Casos de Éxito</h2>
+            <p class="cases__subtitle">Clubes que ya confían en Agendatica</p>
+            <div class="cases__grid">
+                <article class="case-card">
+                    <img src="https://i.imgur.com/placeholder1.jpg" alt="Club de padel centro" style="object-position: center;">
+                    <div class="case-card__body">
+                        <h3>Club de Pádel Centro</h3>
+                        <p>Eliminó llamadas telefónicas y duplicaciones. Reservas automáticas 24/7 aumentaron la ocupación en horarios off-peak.</p>
+                        <div class="case-card__metrics">
+                            <div class="metric"><strong>35%</strong> más ocupación</div>
+                            <div class="metric"><strong>90%</strong> menos errores</div>
+                        </div>
+                    </div>
+                </article>
+                <article class="case-card">
+                    <img src="https://images.unsplash.com/photo-1612534847738-b6b1f420c655?w=600&h=400&fit=crop" alt="Club de tenis norte">
+                    <div class="case-card__body">
+                        <h3>Club de Tenis Norte</h3>
+                        <p>Integró pagos automáticos con Mercado Pago. Los recordatorios redujeron los no-shows y mejoraron la experiencia.</p>
+                        <div class="case-card__metrics">
+                            <div class="metric"><strong>4%</strong> tasa no-shows</div>
+                            <div class="metric"><strong>20h/sem</strong> ahorradas</div>
+                        </div>
+                    </div>
+                </article>
+                <article class="case-card">
+                    <img src="https://images.unsplash.com/photo-1622163642998-1ea32b0bbc67?w=600&h=400&fit=crop" alt="Red de clubes sur">
+                    <div class="case-card__body">
+                        <h3>Red de Clubes Sur</h3>
+                        <p>Implementó el bot en 5 sedes. Gestión centralizada de reservas, promociones automáticas y reportes unificados.</p>
+                        <div class="case-card__metrics">
+                            <div class="metric"><strong>5</strong> sedes activas</div>
+                            <div class="metric"><strong>+300</strong> reservas/semana</div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Solicita tu Demo</h2>
+            <p class="contact__subtitle">Descubre cómo Agendatica puede transformar tu club</p>
+            <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <div>
+                    <label for="name">Nombre *</label>
+                    <input type="text" id="name" name="name" required minlength="2">
+                </div>
+
+                <div>
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div>
+                    <label for="club">Nombre del Club *</label>
+                    <input type="text" id="club" name="club" required>
+                </div>
+
+                <div>
+                    <label for="message">Cuéntanos sobre tu club</label>
+                    <textarea id="message" name="message" placeholder="¿Cuántas canchas tienen? ¿Cómo gestionan las reservas actualmente?"></textarea>
+                </div>
+
+                <button type="submit" class="btn">Solicitar Demo</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="social">
+                <a href="https://linkedin.com" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://twitter.com" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="mailto:hola@agendatica.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+            <p>© 2025 Agendatica. Tu reserva automática.</p>
+        </div>
+    </footer>
+</body>
+</html>
