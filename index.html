@@ -47,7 +47,7 @@
             color: inherit;
         }
 
-        h1, h2, h3 {
+        h1, h2, h3, h4 {
             line-height: 1.2;
             color: var(--white);
         }
@@ -93,16 +93,40 @@
             margin: 0 auto;
         }
 
+        /* Page Sections */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
         /* Header */
         .header {
             padding: 2rem 0 1rem;
             border-bottom: 1px solid rgba(0, 217, 255, 0.1);
         }
 
-        .logo img {
+        .logo img, .logo svg {
             max-width: 400px;
             width: 100%;
             height: auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--cyan);
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .back-link:hover {
+            gap: 0.75rem;
         }
 
         /* Hero */
@@ -355,13 +379,6 @@
             transform: translateX(8px);
         }
 
-        .feature-item i {
-            font-size: 1.5rem;
-            color: var(--cyan);
-            min-width: 24px;
-            margin-top: 4px;
-        }
-
         .feature-item svg {
             min-width: 48px;
             width: 48px;
@@ -489,6 +506,7 @@
             background: var(--navy-dark);
             border: 1px solid rgba(0, 217, 255, 0.15);
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .case-card:hover {
@@ -515,6 +533,15 @@
         .case-card__body h3 {
             margin-bottom: 0.75rem;
             font-size: 1.35rem;
+        }
+
+        .case-card__body h3 a {
+            color: var(--white);
+            transition: color 0.3s ease;
+        }
+
+        .case-card__body h3 a:hover {
+            color: var(--cyan);
         }
 
         .case-card__body p {
@@ -638,16 +665,318 @@
             transform: translateY(-3px);
         }
 
+        /* Case Study Page Styles */
+        .hero-case {
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .hero-case h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--white) 0%, var(--cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-case .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .hero-case .client-info {
+            display: inline-block;
+            background: rgba(0, 217, 255, 0.1);
+            padding: 1.5rem 2rem;
+            border-radius: var(--radius);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            margin-top: 1rem;
+        }
+
+        .client-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            text-align: left;
+        }
+
+        .client-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .client-info-item i {
+            color: var(--cyan);
+            font-size: 1.5rem;
+        }
+
+        .client-info-item div h4 {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .client-info-item div p {
+            font-size: 1.1rem;
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .executive-summary {
+            padding: 3rem 0;
+            background: var(--navy-dark);
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, transparent 100%);
+            border-left: 4px solid var(--cyan);
+            padding: 2rem;
+            border-radius: var(--radius);
+        }
+
+        .summary-box h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-box p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .highlight-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: var(--navy);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            text-align: center;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .stat-card .number {
+            font-size: 2.5rem;
+            color: var(--cyan);
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .label {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .content-section {
+            padding: 4rem 0;
+        }
+
+        .content-section:nth-child(even) {
+            background: var(--navy-dark);
+        }
+
+        .content-section h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .content-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--cyan);
+            border-radius: 2px;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .challenge-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .challenge-list li {
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            background: rgba(0, 217, 255, 0.05);
+            border-left: 3px solid var(--cyan);
+            border-radius: var(--radius);
+            color: var(--text-light);
+            font-size: 1.05rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--cyan) 0%, transparent 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 0;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--cyan);
+            border: 3px solid var(--navy);
+        }
+
+        .timeline-item h3 {
+            color: var(--cyan);
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+        }
+
+        .timeline-item p {
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .result-card {
+            background: var(--navy-dark);
+            padding: 2rem;
+            border-radius: var(--radius);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .result-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--cyan);
+            box-shadow: 0 8px 24px rgba(0, 217, 255, 0.2);
+        }
+
+        .result-card i {
+            font-size: 2.5rem;
+            color: var(--cyan);
+            margin-bottom: 1rem;
+        }
+
+        .result-card h3 {
+            font-size: 2rem;
+            color: var(--cyan);
+            margin-bottom: 0.5rem;
+        }
+
+        .result-card p {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .quote-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%);
+        }
+
+        .quote-box {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 3rem 2rem;
+            position: relative;
+        }
+
+        .quote-box::before {
+            content: '"';
+            font-size: 6rem;
+            color: var(--cyan);
+            opacity: 0.2;
+            position: absolute;
+            top: -20px;
+            left: 20px;
+        }
+
+        .quote-box p {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .quote-box .author {
+            color: var(--cyan);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .quote-box .title {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .cta-section {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
         /* Responsive */
         @media (min-width: 640px) {
-            .hero__text h1 {
+            .hero__text h1, .hero-case h1 {
                 font-size: 2.75rem;
             }
 
             .services h2,
             .cases h2,
             .contact h2,
-            .about__text h2 {
+            .about__text h2,
+            .content-section h2 {
                 font-size: 2.25rem;
             }
         }
@@ -673,6 +1002,37 @@
                 grid-template-columns: 1fr 1fr;
                 gap: 4rem;
             }
+
+            .hero-case h1 {
+                font-size: 3rem;
+            }
+
+            .timeline::before {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .timeline-item {
+                width: 45%;
+                padding-left: 0;
+                padding-right: 40px;
+            }
+
+            .timeline-item:nth-child(even) {
+                margin-left: 55%;
+                padding-right: 0;
+                padding-left: 40px;
+            }
+
+            .timeline-item::before {
+                left: auto;
+                right: -9px;
+            }
+
+            .timeline-item:nth-child(even)::before {
+                right: auto;
+                left: -9px;
+            }
         }
 
         @media (min-width: 1024px) {
@@ -687,305 +1047,560 @@
     </style>
 </head>
 <body>
-    <!-- Logo Header -->
-    <header class="header container">
-        <div class="logo">
-            <svg width="400" height="100" viewBox="0 0 755 278" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Circle with gradient -->
-                <circle cx="95" cy="139" r="85" stroke="url(#gradient1)" stroke-width="20" fill="none"/>
-                <!-- Checkmark -->
-                <path d="M60 140 L85 165 L135 110" stroke="#e5e7eb" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                <!-- Text AGENDATICA with gradient -->
-                <text x="210" y="165" font-family="Arial, sans-serif" font-size="90" font-weight="bold" fill="url(#gradient2)">AGENDÁTICA</text>
-                <!-- Subtitle -->
-                <text x="215" y="215" font-family="Arial, sans-serif" font-size="32" fill="#9ca3af" letter-spacing="8">TU RESERVA AUTOMÁTICA</text>
-                <defs>
-                    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#00d9ff;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#0ea5e9;stop-opacity:1" />
-                    </linearGradient>
-                    <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" style="stop-color:#00d9ff;stop-opacity:1" />
-                        <stop offset="50%" style="stop-color:#0ea5e9;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#2563eb;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-            </svg>
-        </div>
-    </header>
-
-    <!-- Hero -->
-    <section class="hero container">
-        <div class="hero__text">
-            <h1>Profesionaliza tu Club con Reservas Automáticas</h1>
-            <p>Automatiza la gestión de canchas con nuestro chatbot de WhatsApp. Reservas 24/7, pagos automáticos y cero errores. La solución inteligente para clubes de pádel y tenis.</p>
-            <div class="hero__actions">
-                <a href="#contact" class="btn">Solicitar Demo</a>
-                <a href="#about" class="btn btn--outline">Conocer Más</a>
+    <!-- MAIN PAGE -->
+    <div id="main-page" class="page-section active">
+        <!-- Logo Header -->
+        <header class="header container">
+            <div class="logo">
+                <svg width="400" height="100" viewBox="0 0 755 278" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="95" cy="139" r="85" stroke="url(#gradient1)" stroke-width="20" fill="none"/>
+                    <path d="M60 140 L85 165 L135 110" stroke="#e5e7eb" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    <text x="210" y="165" font-family="Arial, sans-serif" font-size="90" font-weight="bold" fill="url(#gradient2)">AGENDÁTICA</text>
+                    <text x="215" y="215" font-family="Arial, sans-serif" font-size="32" fill="#9ca3af" letter-spacing="8">TU RESERVA AUTOMÁTICA</text>
+                    <defs>
+                        <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00d9ff;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0ea5e9;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#00d9ff;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#0ea5e9;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#2563eb;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                </svg>
             </div>
-        </div>
-        <div class="hero__image">
-            <div class="whatsapp-mockup">
-                <!-- WhatsApp Header -->
-                <div class="whatsapp-header">
-                    <div class="whatsapp-avatar">A</div>
-                    <div class="whatsapp-info">
-                        <h4>Agendatica Bot</h4>
-                        <p>en línea</p>
-                    </div>
+        </header>
+
+        <!-- Hero -->
+        <section class="hero container">
+            <div class="hero__text">
+                <h1>Profesionaliza tu Club con Reservas Automáticas</h1>
+                <p>Automatiza la gestión de canchas con nuestro chatbot de WhatsApp. Reservas 24/7, pagos automáticos y cero errores. La solución inteligente para clubes de pádel y tenis.</p>
+                <div class="hero__actions">
+                    <a href="#contact" class="btn">Solicitar Demo</a>
+                    <a href="#about" class="btn btn--outline">Conocer Más</a>
                 </div>
-
-                <!-- Chat Messages -->
-                <div class="whatsapp-chat">
-                    <div class="message sent">
-                        <div class="message-bubble">
-                            Hola! Quiero reservar una cancha mañana a las 19:00
-                            <span class="message-time">18:32</span>
+            </div>
+            <div class="hero__image">
+                <div class="whatsapp-mockup">
+                    <div class="whatsapp-header">
+                        <div class="whatsapp-avatar">A</div>
+                        <div class="whatsapp-info">
+                            <h4>Agendatica Bot</h4>
+                            <p>en línea</p>
                         </div>
                     </div>
-
-                    <div class="message received">
-                        <div class="message-bubble">
-                            ¡Hola! 👋 Perfecto, déjame verificar la disponibilidad para mañana 23/10 a las 19:00.
-                            <span class="message-time">18:32</span>
+                    <div class="whatsapp-chat">
+                        <div class="message sent">
+                            <div class="message-bubble">
+                                Hola! Quiero reservar una cancha mañana a las 19:00
+                                <span class="message-time">18:32</span>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="message received">
-                        <div class="message-bubble">
-                            ✅ Tengo estas opciones disponibles:<br><br>
-                            🎾 Cancha 1 - 19:00 a 20:30 - $2.500<br>
-                            🎾 Cancha 3 - 19:00 a 20:30 - $2.500<br><br>
-                            ¿Cuál prefieres?
-                            <span class="message-time">18:33</span>
+                        <div class="message received">
+                            <div class="message-bubble">
+                                ¡Hola! 👋 Perfecto, déjame verificar la disponibilidad para mañana 23/10 a las 19:00.
+                                <span class="message-time">18:32</span>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="message sent">
-                        <div class="message-bubble">
-                            La cancha 1 por favor
-                            <span class="message-time">18:34</span>
+                        <div class="message received">
+                            <div class="message-bubble">
+                                ✅ Tengo estas opciones disponibles:<br><br>
+                                🎾 Cancha 1 - 19:00 a 20:30 - $2.500<br>
+                                🎾 Cancha 3 - 19:00 a 20:30 - $2.500<br><br>
+                                ¿Cuál prefieres?
+                                <span class="message-time">18:33</span>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="message received">
-                        <div class="message-bubble">
-                            ¡Excelente elección! 🎾<br><br>
-                            📋 Resumen:<br>
-                            • Cancha 1<br>
-                            • 23/10 - 19:00 a 20:30<br>
-                            • Total: $2.500<br><br>
-                            Te envío el link de pago. La reserva se confirma al aprobar el pago 👇
-                            <span class="message-time">18:34</span>
+                        <div class="message sent">
+                            <div class="message-bubble">
+                                La cancha 1 por favor
+                                <span class="message-time">18:34</span>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="message received">
-                        <div class="message-bubble">
-                            💳 https://mpago.la/abc123<br><br>
-                            Tenés 10 minutos para completar el pago ⏱️
-                            <span class="message-time">18:34</span>
+                        <div class="message received">
+                            <div class="message-bubble">
+                                ¡Excelente elección! 🎾<br><br>
+                                📋 Resumen:<br>
+                                • Cancha 1<br>
+                                • 23/10 - 19:00 a 20:30<br>
+                                • Total: $2.500<br><br>
+                                Te envío el link de pago. La reserva se confirma al aprobar el pago 👇
+                                <span class="message-time">18:34</span>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="message received">
-                        <div class="message-bubble">
-                            <div class="typing-indicator">
-                                <span></span>
-                                <span></span>
-                                <span></span>
+                        <div class="message received">
+                            <div class="message-bubble">
+                                💳 https://mpago.la/abc123<br><br>
+                                Tenés 10 minutos para completar el pago ⏱️
+                                <span class="message-time">18:34</span>
+                            </div>
+                        </div>
+                        <div class="message received">
+                            <div class="message-bubble">
+                                <div class="typing-indicator">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="about__content">
-                <div class="about__text">
-                    <h2>¿Qué es Agendatica?</h2>
-                    <p>Somos un chatbot inteligente diseñado específicamente para clubes deportivos que buscan profesionalizar su gestión y mejorar la experiencia de sus jugadores.</p>
-                    <p>Operamos 24/7 a través de WhatsApp, automatizando todo el proceso de reservas desde la consulta hasta el pago, eliminando errores humanos y liberando tiempo valioso del personal del club.</p>
-                </div>
-                <div class="about__features">
-                    <div class="feature-item">
-                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Gear with lightning bolt (automation) -->
-                            <circle cx="32" cy="32" r="28" stroke="#00d9ff" stroke-width="2.5"/>
-                            <path d="M32 12 L36 20 L32 24 L28 20 Z" fill="#00d9ff"/>
-                            <path d="M32 52 L28 44 L32 40 L36 44 Z" fill="#00d9ff"/>
-                            <path d="M12 32 L20 28 L24 32 L20 36 Z" fill="#00d9ff"/>
-                            <path d="M52 32 L44 36 L40 32 L44 28 Z" fill="#00d9ff"/>
-                            <path d="M32 22 L34 30 L28 36 L30 32 L26 30 L30 28 Z" fill="#00d9ff"/>
-                        </svg>
-                        <div>
-                            <h4>Automatización Total</h4>
-                            <p>El bot maneja consultas, reservas, pagos y confirmaciones sin intervención humana</p>
-                        </div>
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <div class="about__content">
+                    <div class="about__text">
+                        <h2>¿Qué es Agendatica?</h2>
+                        <p>Somos un chatbot inteligente diseñado específicamente para clubes deportivos que buscan profesionalizar su gestión y mejorar la experiencia de sus jugadores.</p>
+                        <p>Operamos 24/7 a través de WhatsApp, automatizando todo el proceso de reservas desde la consulta hasta el pago, eliminando errores humanos y liberando tiempo valioso del personal del club.</p>
                     </div>
-                    <div class="feature-item">
-                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Connected nodes (integration) -->
-                            <circle cx="32" cy="16" r="6" fill="#00d9ff"/>
-                            <circle cx="16" cy="48" r="6" fill="#00d9ff"/>
-                            <circle cx="48" cy="48" r="6" fill="#00d9ff"/>
-                            <circle cx="32" cy="38" r="8" fill="none" stroke="#00d9ff" stroke-width="2.5"/>
-                            <line x1="32" y1="22" x2="32" y2="30" stroke="#00d9ff" stroke-width="2.5"/>
-                            <line x1="28" y1="42" x2="20" y2="44" stroke="#00d9ff" stroke-width="2.5"/>
-                            <line x1="36" y1="42" x2="44" y2="44" stroke="#00d9ff" stroke-width="2.5"/>
-                        </svg>
-                        <div>
-                            <h4>Integración Completa</h4>
-                            <p>Compatible con WhatsApp Business, Google Calendar, Google Sheets y Mercado Pago</p>
+                    <div class="about__features">
+                        <div class="feature-item">
+                            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="32" cy="32" r="28" stroke="#00d9ff" stroke-width="2.5"/>
+                                <path d="M32 12 L36 20 L32 24 L28 20 Z" fill="#00d9ff"/>
+                                <path d="M32 52 L28 44 L32 40 L36 44 Z" fill="#00d9ff"/>
+                                <path d="M12 32 L20 28 L24 32 L20 36 Z" fill="#00d9ff"/>
+                                <path d="M52 32 L44 36 L40 32 L44 28 Z" fill="#00d9ff"/>
+                                <path d="M32 22 L34 30 L28 36 L30 32 L26 30 L30 28 Z" fill="#00d9ff"/>
+                            </svg>
+                            <div>
+                                <h4>Automatización Total</h4>
+                                <p>El bot maneja consultas, reservas, pagos y confirmaciones sin intervención humana</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="feature-item">
-                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Shield with checkmark (zero errors) -->
-                            <path d="M32 8 L48 16 L48 32 Q48 44 32 56 Q16 44 16 32 L16 16 Z" fill="none" stroke="#00d9ff" stroke-width="2.5"/>
-                            <path d="M24 32 L29 38 L42 24" stroke="#00d9ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <div>
-                            <h4>Cero Errores</h4>
-                            <p>Previene dobles reservas, olvidos y retrasos en el servicio</p>
+                        <div class="feature-item">
+                            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="32" cy="16" r="6" fill="#00d9ff"/>
+                                <circle cx="16" cy="48" r="6" fill="#00d9ff"/>
+                                <circle cx="48" cy="48" r="6" fill="#00d9ff"/>
+                                <circle cx="32" cy="38" r="8" fill="none" stroke="#00d9ff" stroke-width="2.5"/>
+                                <line x1="32" y1="22" x2="32" y2="30" stroke="#00d9ff" stroke-width="2.5"/>
+                                <line x1="28" y1="42" x2="20" y2="44" stroke="#00d9ff" stroke-width="2.5"/>
+                                <line x1="36" y1="42" x2="44" y2="44" stroke="#00d9ff" stroke-width="2.5"/>
+                            </svg>
+                            <div>
+                                <h4>Integración Completa</h4>
+                                <p>Compatible con WhatsApp Business, Google Calendar, Google Sheets y Mercado Pago</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="feature-item">
-                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Star with sparkles (premium experience) -->
-                            <path d="M32 12 L36 26 L50 28 L40 38 L42 52 L32 44 L22 52 L24 38 L14 28 L28 26 Z" fill="none" stroke="#00d9ff" stroke-width="2.5"/>
-                            <circle cx="52" cy="16" r="2" fill="#00d9ff"/>
-                            <circle cx="12" cy="20" r="2" fill="#00d9ff"/>
-                            <circle cx="54" cy="48" r="2" fill="#00d9ff"/>
-                        </svg>
-                        <div>
-                            <h4>Experiencia Premium</h4>
-                            <p>Mejora la comunicación y satisfacción de tus jugadores</p>
+                        <div class="feature-item">
+                            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M32 8 L48 16 L48 32 Q48 44 32 56 Q16 44 16 32 L16 16 Z" fill="none" stroke="#00d9ff" stroke-width="2.5"/>
+                                <path d="M24 32 L29 38 L42 24" stroke="#00d9ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <div>
+                                <h4>Cero Errores</h4>
+                                <p>Previene dobles reservas, olvidos y retrasos en el servicio</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M32 12 L36 26 L50 28 L40 38 L42 52 L32 44 L22 52 L24 38 L14 28 L28 26 Z" fill="none" stroke="#00d9ff" stroke-width="2.5"/>
+                                <circle cx="52" cy="16" r="2" fill="#00d9ff"/>
+                                <circle cx="12" cy="20" r="2" fill="#00d9ff"/>
+                                <circle cx="54" cy="48" r="2" fill="#00d9ff"/>
+                            </svg>
+                            <div>
+                                <h4>Experiencia Premium</h4>
+                                <p>Mejora la comunicación y satisfacción de tus jugadores</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Services -->
-    <section id="services" class="services">
-        <div class="container">
-            <h2>Funcionalidades Clave</h2>
-            <p class="services__subtitle">Todo lo que necesitas para gestionar tu club de forma profesional</p>
-            <div class="services__grid">
-                <article class="service-card">
-                    <i class="fa-brands fa-whatsapp"></i>
-                    <h3>Reservas por WhatsApp</h3>
-                    <p>Los jugadores reservan canchas enviando un mensaje. El bot detecta horarios, verifica disponibilidad y confirma al instante.</p>
-                </article>
-                <article class="service-card">
-                    <i class="fa-solid fa-credit-card"></i>
-                    <h3>Pagos Automáticos</h3>
-                    <p>Genera links de pago con Mercado Pago. La reserva se confirma automáticamente tras la aprobación del pago.</p>
-                </article>
-                <article class="service-card">
-                    <i class="fa-solid fa-bell"></i>
-                    <h3>Recordatorios Inteligentes</h3>
-                    <p>Envía alertas 24h y 3h antes del turno. Reduce olvidos, aumenta asistencia y maximiza ocupación de canchas.</p>
-                </article>
-                <article class="service-card">
-                    <i class="fa-solid fa-chart-pie"></i>
-                    <h3>Reportes y Analytics</h3>
-                    <p>Visualiza ocupación, conversión y datos de jugadores en tiempo real. Toma decisiones basadas en información concreta.</p>
-                </article>
+        <!-- Services -->
+        <section id="services" class="services">
+            <div class="container">
+                <h2>Funcionalidades Clave</h2>
+                <p class="services__subtitle">Todo lo que necesitas para gestionar tu club de forma profesional</p>
+                <div class="services__grid">
+                    <article class="service-card">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <h3>Reservas por WhatsApp</h3>
+                        <p>Los jugadores reservan canchas enviando un mensaje. El bot detecta horarios, verifica disponibilidad y confirma al instante.</p>
+                    </article>
+                    <article class="service-card">
+                        <i class="fa-solid fa-credit-card"></i>
+                        <h3>Pagos Automáticos</h3>
+                        <p>Genera links de pago con Mercado Pago. La reserva se confirma automáticamente tras la aprobación del pago.</p>
+                    </article>
+                    <article class="service-card">
+                        <i class="fa-solid fa-bell"></i>
+                        <h3>Recordatorios Inteligentes</h3>
+                        <p>Envía alertas 24h y 3h antes del turno. Reduce olvidos, aumenta asistencia y maximiza ocupación de canchas.</p>
+                    </article>
+                    <article class="service-card">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        <h3>Reportes y Analytics</h3>
+                        <p>Visualiza ocupación, conversión y datos de jugadores en tiempo real. Toma decisiones basadas en información concreta.</p>
+                    </article>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Cases -->
-    <section class="cases">
-        <div class="container">
-            <h2>Casos de Éxito</h2>
-            <p class="cases__subtitle">Clubes que ya confían en Agendatica</p>
-            <div class="cases__grid">
-                <article class="case-card">
-                    <img src="club1.jpg" alt="Club de padel centro" style="object-position: center;">
-                    <div class="case-card__body">
-                        <h3>Club de Pádel Centro</h3>
-                        <p>Eliminó llamadas telefónicas y duplicaciones. Reservas automáticas 24/7 aumentaron la ocupación en horarios off-peak.</p>
-                        <div class="case-card__metrics">
-                            <div class="metric"><strong>35%</strong> más ocupación</div>
-                            <div class="metric"><strong>90%</strong> menos errores</div>
+        <!-- Cases -->
+        <section class="cases">
+            <div class="container">
+                <h2>Casos de Éxito</h2>
+                <p class="cases__subtitle">Clubes que ya confían en Agendatica</p>
+                <div class="cases__grid">
+                    <article class="case-card">
+                        <img src="club1.jpg" alt="Club de padel centro" style="object-position: center;">
+                        <div class="case-card__body">
+                            <h3>Club de Pádel Centro</h3>
+                            <p>Eliminó llamadas telefónicas y duplicaciones. Reservas automáticas 24/7 aumentaron la ocupación en horarios off-peak.</p>
+                            <div class="case-card__metrics">
+                                <div class="metric"><strong>35%</strong> más ocupación</div>
+                                <div class="metric"><strong>90%</strong> menos errores</div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="case-card" onclick="showCaseStudy()">
+                        <img src="club2.jpeg" alt="Club de tenis norte" style="object-position: center;">
+                        <div class="case-card__body">
+                            <h3><a href="#" onclick="showCaseStudy(); return false;" style="color: var(--white); transition: color 0.3s ease;">Club de Tenis Norte</a></h3>
+                            <p>Integró pagos automáticos con Mercado Pago. Los recordatorios redujeron los no-shows y mejoraron la experiencia.</p>
+                            <div class="case-card__metrics">
+                                <div class="metric"><strong>4%</strong> tasa no-shows</div>
+                                <div class="metric"><strong>20h/sem</strong> ahorradas</div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="case-card">
+                        <img src="club3.jpeg" alt="Red de clubes sur" style="object-position: center;">
+                        <div class="case-card__body">
+                            <h3>Red de Clubes Sur</h3>
+                            <p>Implementó el bot en 5 sedes. Gestión centralizada de reservas, promociones automáticas y reportes unificados.</p>
+                            <div class="case-card__metrics">
+                                <div class="metric"><strong>5</strong> sedes activas</div>
+                                <div class="metric"><strong>+300</strong> reservas/semana</div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>Solicita tu Demo</h2>
+                <p class="contact__subtitle">Descubre cómo Agendatica puede transformar tu club</p>
+                <form action="https://formspree.io/f/mwprbryd" method="POST">
+                    <div>
+                        <label for="name">Nombre *</label>
+                        <input type="text" id="name" name="name" required minlength="2">
+                    </div>
+                    <div>
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div>
+                        <label for="club">Nombre del Club *</label>
+                        <input type="text" id="club" name="club" required>
+                    </div>
+                    <div>
+                        <label for="message">Cuéntanos sobre tu club</label>
+                        <textarea id="message" name="message" placeholder="¿Cuántas canchas tienen? ¿Cómo gestionan las reservas actualmente?"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Solicitar Demo</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="social">
+                    <a href="https://linkedin.com" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="https://twitter.com" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="mailto:hola@agendatica.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+                </div>
+                <p>© 2025 Agendatica. Tu reserva automática.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- CASE STUDY PAGE -->
+    <div id="case-study-page" class="page-section">
+        <header class="header container">
+            <div class="logo">
+                <svg width="350" height="90" viewBox="0 0 755 278" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="95" cy="139" r="85" stroke="url(#gradient3)" stroke-width="20" fill="none"/>
+                    <path d="M60 140 L85 165 L135 110" stroke="#e5e7eb" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    <text x="210" y="165" font-family="Arial, sans-serif" font-size="90" font-weight="bold" fill="url(#gradient4)">AGENDÁTICA</text>
+                    <text x="215" y="215" font-family="Arial, sans-serif" font-size="32" fill="#9ca3af" letter-spacing="8">TU RESERVA AUTOMÁTICA</text>
+                    <defs>
+                        <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00d9ff;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0ea5e9;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="gradient4" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#00d9ff;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#0ea5e9;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#2563eb;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <a class="back-link" onclick="showMainPage()">
+                <i class="fa-solid fa-arrow-left"></i> Volver al inicio
+            </a>
+        </header>
+
+        <section class="hero-case container">
+            <h1>Caso de Éxito: Club Pádel Norte</h1>
+            <p class="subtitle">De caos organizacional a automatización del 85% en solo 3 meses</p>
+            
+            <div class="client-info">
+                <div class="client-info-grid">
+                    <div class="client-info-item">
+                        <i class="fa-solid fa-building"></i>
+                        <div>
+                            <h4>Industria</h4>
+                            <p>Deportes & Ocio</p>
                         </div>
                     </div>
-                </article>
-                <article class="case-card">
-                    <img src="club2.jpeg" alt="Club de tenis norte" style="object-position: center;">
-                    <div class="case-card__body">
-                        <h3>Club de Tenis Norte</h3>
-                        <p>Integró pagos automáticos con Mercado Pago. Los recordatorios redujeron los no-shows y mejoraron la experiencia.</p>
-                        <div class="case-card__metrics">
-                            <div class="metric"><strong>4%</strong> tasa no-shows</div>
-                            <div class="metric"><strong>20h/sem</strong> ahorradas</div>
+                    <div class="client-info-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <h4>Ubicación</h4>
+                            <p>Buenos Aires, AR</p>
                         </div>
                     </div>
-                </article>
-                <article class="case-card">
-                    <img src="club3.jpeg" alt="Red de clubes sur" style="object-position: center;">
-                    <div class="case-card__body">
-                        <h3>Red de Clubes Sur</h3>
-                        <p>Implementó el bot en 5 sedes. Gestión centralizada de reservas, promociones automáticas y reportes unificados.</p>
-                        <div class="case-card__metrics">
-                            <div class="metric"><strong>5</strong> sedes activas</div>
-                            <div class="metric"><strong>+300</strong> reservas/semana</div>
+                    <div class="client-info-item">
+                        <i class="fa-solid fa-users"></i>
+                        <div>
+                            <h4>Empleados</h4>
+                            <p>15 personas</p>
                         </div>
                     </div>
-                </article>
+                    <div class="client-info-item">
+                        <i class="fa-solid fa-table-tennis-paddle-ball"></i>
+                        <div>
+                            <h4>Canchas</h4>
+                            <p>10 canchas</p>
+                        </div>
+                    </div>
+                    <div class="client-info-item">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <div>
+                            <h4>Jugadores</h4>
+                            <p>~500 mensuales</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2>Solicita tu Demo</h2>
-            <p class="contact__subtitle">Descubre cómo Agendatica puede transformar tu club</p>
-            <form action="https://formspree.io/f/mwprbryd" method="POST">
-                <div>
-                    <label for="name">Nombre *</label>
-                    <input type="text" id="name" name="name" required minlength="2">
+        <section class="executive-summary">
+            <div class="container">
+                <div class="summary-box">
+                    <h2>Resumen Ejecutivo</h2>
+                    <p>En 2025, Club Pádel Norte enfrentaba un caos constante en la gestión de turnos: jugadores perdían reservas, el personal pasaba horas coordinando por teléfono y las cancelaciones de último momento dejaban canchas vacías.</p>
+                    <p>Buscando una solución simple pero escalable, el club implementó Agendática, un chatbot inteligente de WhatsApp que automatiza reservas, confirmaciones y reprogramaciones basadas en el clima.</p>
+                    
+                    <div class="highlight-stats">
+                        <div class="stat-card">
+                            <span class="number">85%</span>
+                            <span class="label">Proceso automatizado</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="number">40%</span>
+                            <span class="label">Menos cancelaciones</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="number">30%</span>
+                            <span class="label">Más ocupación</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="number">2 meses</span>
+                            <span class="label">Retorno de inversión</span>
+                        </div>
+                    </div>
                 </div>
-
-                <div>
-                    <label for="email">Email *</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-
-                <div>
-                    <label for="club">Nombre del Club *</label>
-                    <input type="text" id="club" name="club" required>
-                </div>
-
-                <div>
-                    <label for="message">Cuéntanos sobre tu club</label>
-                    <textarea id="message" name="message" placeholder="¿Cuántas canchas tienen? ¿Cómo gestionan las reservas actualmente?"></textarea>
-                </div>
-
-                <button type="submit" class="btn">Solicitar Demo</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="social">
-                <a href="https://linkedin.com" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="https://twitter.com" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="mailto:hola@agendatica.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
             </div>
-            <p>© 2025 Agendatica. Tu reserva automática.</p>
-        </div>
-    </footer>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2>El Desafío</h2>
+                <p>Antes de adoptar Agendática, Club Pádel Norte gestionaba todas las reservas manualmente a través de llamadas telefónicas y mensajes de WhatsApp. Cada reserva requería confirmación humana, las cancelaciones pasaban desapercibidas y las reservas dobles ocurrían semanalmente.</p>
+                <p>Como resultado, casi el 25% del total de horas de juego quedaban sin usar, y el personal dedicaba un promedio de dos horas diarias a coordinar horarios en lugar de atender clientes o mejorar servicios.</p>
+                
+                <ul class="challenge-list">
+                    <li><strong>💰 Pérdidas de ingresos:</strong> Canchas vacías generaban pérdidas de aproximadamente ARS 150.000 por mes</li>
+                    <li><strong>😓 Agotamiento del personal:</strong> El equipo debía reorganizar horarios manualmente cada fin de semana</li>
+                    <li><strong>📉 Satisfacción decreciente:</strong> Algunos jugadores regulares se mudaron a competidores más digitalizados</li>
+                    <li><strong>🌧️ Caos en días lluviosos:</strong> Decenas de mensajes inundaban el chat haciendo la reprogramación casi imposible</li>
+                </ul>
+
+                <p>El equipo se dio cuenta de que su sistema manual estaba frenando el crecimiento. Lo que necesitaban no era solo una herramienta de reservas, sino un asistente inteligente y automatizado capaz de manejar las tareas repetitivas mientras mantenía el toque humano que los jugadores apreciaban.</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2>La Solución</h2>
+                <p>Enfrentando una frustración creciente, Club Pádel Norte contactó a Agendática, una startup B2B especializada en automatizar la gestión de reservas para centros deportivos. En lugar de ofrecer un software complejo o instalación de apps, Agendática propuso un chatbot basado en WhatsApp diseñado para integrarse perfectamente en el flujo de comunicación diario del club.</p>
+                
+                <p>Después de una evaluación inicial, el equipo de Agendática identificó tres necesidades clave:</p>
+                <ul class="challenge-list">
+                    <li>Automatización de reservas y cancelaciones en tiempo real</li>
+                    <li>Integración de alertas basadas en el clima para prevenir ausencias en días lluviosos</li>
+                    <li>Dashboard centralizado para que los managers visualicen reservas y patrones de demanda</li>
+                </ul>
+
+                <p>Los jugadores apreciaron la simplicidad, describiéndolo como "simplemente como chatear con un amigo que organiza tus partidos."</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2>Proceso de Implementación</h2>
+                <p>El proceso de implementación tomó seis semanas y se estructuró en etapas progresivas para asegurar una adopción fluida.</p>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>Semana 1-2: Descubrimiento y Configuración</h3>
+                        <p>El equipo de Agendática analizó el flujo de comunicación existente y los patrones de reserva del club. Configuraron el chatbot para reflejar cómo los miembros ya interactuaban vía WhatsApp. El primer piloto se lanzó con una cancha y un pequeño grupo de jugadores frecuentes.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h3>Semana 3-4: Expansión y Ajustes</h3>
+                        <p>Después del éxito inicial —100% de los usuarios piloto adoptaron el chatbot en la primera semana— el sistema se expandió a todas las canchas. El personal del club creó un mensaje tutorial simple con instrucciones paso a paso y emojis para mayor claridad. La adopción subió inmediatamente al 92% de todos los jugadores.</p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h3>Semana 5-6: Optimización e Insights</h3>
+                        <p>Con el chatbot completamente operativo, Agendática integró alertas automáticas de clima y reportes diarios de ocupación. Esto permitió al club anticipar cancelaciones por lluvia y reasignar canchas instantáneamente. El sistema también generó resúmenes semanales que ayudaron a la gerencia a identificar horas pico y optimizar estrategias de precios.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2>Resultados y ROI</h2>
+                <p>Solo tres meses después de la implementación, Club Pádel Norte logró mejoras medibles en todas las áreas operacionales. Lo que comenzó como un pequeño proyecto de automatización rápidamente se convirtió en un catalizador para la eficiencia organizacional y la satisfacción del cliente.</p>
+                
+                <div class="results-grid">
+                    <div class="result-card">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <h3>+30%</h3>
+                        <p>Aumento en reservas totales en los primeros 90 días</p>
+                    </div>
+                    
+                    <div class="result-card">
+                        <i class="fa-solid fa-robot"></i>
+                        <h3>85%</h3>
+                        <p>De reservas completamente automatizadas, liberando más de 40 horas de personal por mes</p>
+                    </div>
+                    
+                    <div class="result-card">
+                        <i class="fa-solid fa-cloud-rain"></i>
+                        <h3>40%</h3>
+                        <p>Reducción en cancelaciones de último momento gracias a alertas climáticas</p>
+                    </div>
+                    
+                    <div class="result-card">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <h3>2 meses</h3>
+                        <p>Período de recuperación de la inversión en tiempo récord</p>
+                    </div>
+                    
+                    <div class="result-card">
+                        <i class="fa-solid fa-smile"></i>
+                        <h3>+25%</h3>
+                        <p>Aumento en satisfacción del cliente medida a través de encuestas post-reserva</p>
+                    </div>
+                    
+                    <div class="result-card">
+                        <i class="fa-solid fa-clock"></i>
+                        <h3>40 horas</h3>
+                        <p>Liberadas por mes para que el personal se enfoque en mejorar la experiencia del cliente</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="quote-section">
+            <div class="container">
+                <div class="quote-box">
+                    <p>Pasamos del caos a la calma. El chatbot no solo organizó nuestras canchas, organizó nuestros días laborales.</p>
+                    <div class="author">— Mariana Torres</div>
+                    <div class="title">Gerente del Club, Pádel Norte</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2>Hoja de Ruta Futura</h2>
+                <p>Alentada por el éxito en Club Pádel Norte, Agendática está escalando su solución a múltiples instalaciones deportivas y centros de fitness en toda Argentina. La próxima fase de desarrollo se centra en tres objetivos estratégicos:</p>
+                
+                <ul class="challenge-list">
+                    <li><strong>🏢 Gestión multi-sede:</strong> Permitir que cadenas de clubes centralicen todas las reservas bajo un dashboard unificado</li>
+                    <li><strong>📊 Módulo de analíticas avanzadas:</strong> Habilitar a los propietarios a visualizar tendencias de demanda, horas pico y proyecciones de ingresos en tiempo real</li>
+                    <li><strong>🤖 Personalización con IA:</strong> Introducir sugerencias inteligentes basadas en el comportamiento del jugador, horarios preferidos y pronósticos del clima</li>
+                </ul>
+
+                <p>Como suelen decir los fundadores: <em>"Nuestro objetivo no es reemplazar a las personas con tecnología, sino dejar que la tecnología les devuelva su tiempo."</em></p>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <h2>¿Listo para transformar tu club?</h2>
+                <p>Descubre cómo Agendática puede ayudarte a automatizar reservas, reducir errores y aumentar la satisfacción de tus jugadores.</p>
+                <a href="#" onclick="showMainPage(); document.getElementById('contact').scrollIntoView({behavior: 'smooth'}); return false;" class="btn">Solicitar Demo</a>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="container">
+                <p>© 2025 Agendatica. Tu reserva automática.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function showCaseStudy() {
+            document.getElementById('main-page').classList.remove('active');
+            document.getElementById('case-study-page').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function showMainPage() {
+            document.getElementById('case-study-page').classList.remove('active');
+            document.getElementById('main-page').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && !href.includes('onclick')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
