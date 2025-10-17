@@ -667,62 +667,188 @@
 
         /* Case Study Page Styles */
         .hero-case {
-            padding: 3rem 0;
-            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-case::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 217, 255, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-case::after {
+            content: '';
+            position: absolute;
+            bottom: -150px;
+            left: -150px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 217, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-case-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .case-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: var(--cyan);
+            font-weight: 600;
+            margin-bottom: 2rem;
+            animation: fadeInDown 0.6s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero-case h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
             background: linear-gradient(135deg, var(--white) 0%, var(--cyan) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero-case .subtitle {
-            font-size: 1.25rem;
+            font-size: 1.35rem;
             color: var(--text-light);
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .hero-case .client-info {
-            display: inline-block;
-            background: rgba(0, 217, 255, 0.1);
-            padding: 1.5rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.08) 0%, rgba(0, 217, 255, 0.03) 100%);
+            padding: 2.5rem;
             border-radius: var(--radius);
             border: 1px solid rgba(0, 217, 255, 0.2);
-            margin-top: 1rem;
+            margin-top: 3rem;
+            box-shadow: 0 8px 32px rgba(0, 217, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: scaleIn 0.8s ease;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .hero-case .client-info::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 217, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
         }
 
         .client-info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
             text-align: left;
+            position: relative;
+            z-index: 1;
         }
 
         .client-info-item {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(26, 26, 62, 0.5);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .client-info-item:hover {
+            background: rgba(0, 217, 255, 0.08);
+            border-color: rgba(0, 217, 255, 0.3);
+            transform: translateY(-3px);
         }
 
         .client-info-item i {
             color: var(--cyan);
-            font-size: 1.5rem;
+            font-size: 2rem;
+            min-width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 217, 255, 0.1);
+            border-radius: 8px;
         }
 
         .client-info-item div h4 {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
             margin-bottom: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
         }
 
         .client-info-item div p {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--white);
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .executive-summary {
@@ -1358,44 +1484,50 @@
         </header>
 
         <section class="hero-case container">
-            <h1>Caso de Éxito: Club Pádel Norte</h1>
-            <p class="subtitle">De caos organizacional a automatización del 85% en solo 3 meses</p>
-            
-            <div class="client-info">
-                <div class="client-info-grid">
-                    <div class="client-info-item">
-                        <i class="fa-solid fa-building"></i>
-                        <div>
-                            <h4>Industria</h4>
-                            <p>Deportes & Ocio</p>
+            <div class="hero-case-content">
+                <div class="case-badge">
+                    <i class="fa-solid fa-star"></i>
+                    Caso de Éxito Destacado
+                </div>
+                <h1>Club Pádel Norte</h1>
+                <p class="subtitle">De caos organizacional a automatización del 85% en solo 3 meses. Descubre cómo transformamos la gestión de este club deportivo.</p>
+                
+                <div class="client-info">
+                    <div class="client-info-grid">
+                        <div class="client-info-item">
+                            <i class="fa-solid fa-building"></i>
+                            <div>
+                                <h4>Industria</h4>
+                                <p>Deportes & Ocio</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="client-info-item">
-                        <i class="fa-solid fa-location-dot"></i>
-                        <div>
-                            <h4>Ubicación</h4>
-                            <p>Buenos Aires, AR</p>
+                        <div class="client-info-item">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div>
+                                <h4>Ubicación</h4>
+                                <p>Buenos Aires</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="client-info-item">
-                        <i class="fa-solid fa-users"></i>
-                        <div>
-                            <h4>Empleados</h4>
-                            <p>15 personas</p>
+                        <div class="client-info-item">
+                            <i class="fa-solid fa-users"></i>
+                            <div>
+                                <h4>Empleados</h4>
+                                <p>15 personas</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="client-info-item">
-                        <i class="fa-solid fa-table-tennis-paddle-ball"></i>
-                        <div>
-                            <h4>Canchas</h4>
-                            <p>10 canchas</p>
+                        <div class="client-info-item">
+                            <i class="fa-solid fa-table-tennis-paddle-ball"></i>
+                            <div>
+                                <h4>Canchas</h4>
+                                <p>10 canchas</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="client-info-item">
-                        <i class="fa-solid fa-chart-line"></i>
-                        <div>
-                            <h4>Jugadores</h4>
-                            <p>~500 mensuales</p>
+                        <div class="client-info-item">
+                            <i class="fa-solid fa-chart-line"></i>
+                            <div>
+                                <h4>Jugadores activos</h4>
+                                <p>~500/mes</p>
+                            </div>
                         </div>
                     </div>
                 </div>
